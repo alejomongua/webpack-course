@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    title
+      = htmlWebpackPlugin.options.title
+  body
+    .profile
+      img(src=require('./img/sableLuminoso.png').default)
+      h1
+        | Hello world
+    #react-root

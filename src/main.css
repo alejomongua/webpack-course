@@ -1,0 +1,29 @@
+body {
+  background-color: red;
+  margin: 0;
+}
+
+h1 {
+  height: 2rem;
+  display: flex;
+  color: white;
+
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  border-radius: 100%;
+  width: 300px;
+  box-shadow: 0 0 20px black;
+}
+.example {
+  display: grid;
+  transition: all .5s;
+  user-select: none;
+  background: linear-gradient(to bottom, white, black);
+}
