@@ -14,7 +14,6 @@
   "author": "Luis Alejandro Mongua <alejandro.mongua@gmaul.com>",
   "license": "ISC",
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.10.5",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-middleware": "^3.7.2",
@@ -29,6 +28,7 @@
     "@angular/platform-browser-dynamic": "^10.0.4",
     "@angular/router": "^10.0.4",
     "@babel/core": "^7.10.5",
+    "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
     "@babel/register": "^7.10.5",
