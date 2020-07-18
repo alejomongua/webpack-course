@@ -4,7 +4,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = {
   entry: {
-    main: './src/main.js'
+    main: './src/main',
+    polyfills: ['./src/angular-polyfills'],
+    angular: ['./src/angular']
+  },
+  resolve: {
+    alias: { 'react-dom': '@hot-loader/react-dom' },
+    extensions: ['.js', '.ts']
   },
   mode: 'development',
   output: {
@@ -14,6 +20,7 @@ const config = {
   },
   devServer: {
     contentBase: "dist",
+    historyApiFallback: true,
     overlay: true,
     hot: true,
     stats: {
@@ -25,10 +32,35 @@ const config = {
     rules: [
       {
         test: /\.js$/,
+        exclude: /node_modules/,
         use:[
           {
             loader: 'babel-loader'
           }
+        ]
+      },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use:[
+          {
+            loader: 'ts-loader'
+          }
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          { loader: 'style-loader' },
+          { 
+            loader: 'css-loader',
+            query: {
+              modules: {
+                localIdentName: "[name]-[local]-[hash:4]"
+              }
+            }
+          },
+          { loader: 'postcss-loader' }
         ]
       },
       {
@@ -91,14 +123,16 @@ const config = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: './src/index.hbs',
-      title: "Link's journey"
-    }
+        template: './src/index.html',
+        title: "Link's journey"
+      }
+    ),
+    new webpack.ContextReplacementPlugin(
+      /angular(\\|\/)core/,
+      path.join(__dirname, './src'),
+      {}
     )
-  ],
-  resolve: {
-    alias: { 'react-dom': '@hot-loader/react-dom' }
-  }
+  ]
 }
 
 module.exports = config

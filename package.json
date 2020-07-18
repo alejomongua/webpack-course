@@ -20,6 +20,13 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "@angular/common": "^10.0.4",
+    "@angular/compiler": "^10.0.4",
+    "@angular/core": "^10.0.4",
+    "@angular/forms": "^10.0.4",
+    "@angular/platform-browser": "^10.0.4",
+    "@angular/platform-browser-dynamic": "^10.0.4",
+    "@angular/router": "^10.0.4",
     "@babel/core": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
@@ -28,9 +35,14 @@
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@hot-loader/react-dom": "^16.13.0",
+    "@types/core-js": "^2.5.3",
+    "@types/node": "^14.0.23",
+    "angular": "^1.8.0",
     "autoprefixer": "^9.8.5",
+    "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.1.0",
     "babel-plugin-emotion": "^10.0.33",
+    "core-js": "^3.6.5",
     "css-loader": "^3.6.0",
     "emotion": "^10.0.27",
     "express": "^4.17.1",
@@ -51,8 +63,13 @@
     "react-dom": "^16.13.1",
     "react-emotion": "^10.0.0",
     "react-hot-loader": "^4.12.21",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.6.0",
     "sass-loader": "^9.0.2",
     "style-loader": "^1.2.1",
-    "webpack-hot-middleware": "^2.25.0"
+    "ts-loader": "^8.0.1",
+    "typescript": "^3.9.7",
+    "webpack-hot-middleware": "^2.25.0",
+    "zone.js": "^0.10.3"
   }
 }
