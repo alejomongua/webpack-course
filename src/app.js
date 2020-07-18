@@ -1,11 +1,11 @@
-import React from 'react'
-import Counter from './counter'
-import { hot } from 'react-hot-loader'
+import Vue from 'vue'
+import App from './App.vue'
+import Profile from './components/profile'
 
-const App = () => (
-  <Counter />
-)
+Vue.component('Profile', Profile);
 
-export default hot(module)(App)
-
-
+new Vue({
+  el: '#app',
+  components: { Profile },
+  render: h => h(App)
+})

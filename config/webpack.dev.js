@@ -1,15 +1,17 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 
 const config = {
   entry: {
-    main: './src/main',
-    polyfills: ['./src/angular-polyfills'],
-    angular: ['./src/angular']
+    main: './src/main'
   },
   resolve: {
-    alias: { 'react-dom': '@hot-loader/react-dom' },
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+      vue$: 'vue/dist/vue.esm.js'
+    },
     extensions: ['.js', '.ts']
   },
   mode: 'development',
@@ -30,6 +32,12 @@ const config = {
   devtool: 'source-map',
   module: {
     rules: [
+      {
+        test: /\.vue$/,
+        use: {
+          loader: 'vue-loader'
+        }
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -121,17 +129,13 @@ const config = {
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    //new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
         template: './src/index.html',
         title: "Link's journey"
       }
     ),
-    new webpack.ContextReplacementPlugin(
-      /angular(\\|\/)core/,
-      path.join(__dirname, './src'),
-      {}
-    )
+    new VueLoaderPlugin()
   ]
 }
 

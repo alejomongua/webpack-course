@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "devStart": "npx webpack-dev-server --config=config/webpack.dev.js",
     "devBuild": "npx webpack  --config=config/webpack.dev.js",
-    "dev": "nodemon --inspect --watch config --watch src/server src/server/main.js"
+    "dev": "nodemon --inspect --watch config --watch src/server src/server/main.js",
+    "prod": "NODE_ENV=production node src/server/main.js"
   },
   "keywords": [],
   "author": "Luis Alejandro Mongua <alejandro.mongua@gmaul.com>",
@@ -69,6 +70,10 @@
     "style-loader": "^1.2.1",
     "ts-loader": "^8.0.1",
     "typescript": "^3.9.7",
+    "vue": "^2.6.11",
+    "vue-loader": "^15.9.3",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.11",
     "webpack-hot-middleware": "^2.25.0",
     "zone.js": "^0.10.3"
   }
