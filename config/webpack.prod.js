@@ -89,6 +89,12 @@ const config = env => ({
             }
           }
         ]
+      },
+      {
+        test: /\.md$/,
+        use:[
+          { loader: 'markdown-with-front-matter-loader' }
+        ]
       }
     ]
   },

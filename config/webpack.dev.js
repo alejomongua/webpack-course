@@ -80,6 +80,12 @@ const config = {
             }
           }
         ]
+      },
+      {
+        test: /\.md$/,
+        use:[
+          { loader: 'markdown-with-front-matter-loader' }
+        ]
       }
     ]
   },
