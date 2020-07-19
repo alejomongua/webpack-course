@@ -9,6 +9,9 @@ const config = {
     main: './src/main'
   },
   resolve: {
+    alias: {
+      vue$: 'vue/dist/vue.esm.js'
+    },
     extensions: ['.js', '.ts']
   },
   mode: 'production',
@@ -109,6 +112,28 @@ const config = {
             options: {
               name: 'img/[name]-[hash:8].[ext]',
               esModule: false,
+            }
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                progressive: true,
+                quality: 65
+              },
+              optipng: {
+                enabled: false,
+              },
+              pngquant: {
+                quality: [0.65, 0.90],
+                speed: 4
+              },
+              gifsicle: {
+                interlaced: false,
+              },
+              webp: {
+                quality: 75
+              }
             }
           }
         ]
