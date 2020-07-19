@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const config = {
   entry: {
@@ -95,7 +96,10 @@ const config = {
         template: './src/index.html',
         title: "My journey"
       }
-    )
+    ),
+    new BundleAnalyzerPlugin({
+      generateStatsFile: true
+    })
   ]
 }
 
