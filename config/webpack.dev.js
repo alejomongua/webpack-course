@@ -5,7 +5,12 @@ const { VueLoaderPlugin } = require('vue-loader')
 
 const config = {
   entry: {
-    main: './src/main'
+    main: [
+      '@babel/runtime/regenerator',
+      'react-hot-loader/patch',
+      'webpack-hot-middleware/client?reload=true',
+      './src/main'
+    ]
   },
   resolve: {
     alias: {
@@ -129,7 +134,7 @@ const config = {
     ]
   },
   plugins: [
-    //new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
         template: './src/index.html',
         title: "Link's journey"

@@ -1,5 +1,6 @@
 import express from 'express'
 import webpack from 'webpack'
+import expressStaticGzip from 'express-static-gzip'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackConfig from '../../config/webpack.dev.js'
 import webpackHotMiddleware from 'webpack-hot-middleware'
@@ -20,8 +21,11 @@ if (!isProd){
   server.use(configWebpackHotMiddleware)
   
 }
-const staticMiddleware = express.static("dist")
 
+//const staticMiddleware = express.static("dist")
+const staticMiddleware = expressStaticGzip("dist", {
+  enableBrotli: true
+})
 server.use(staticMiddleware)
 
 const PORT = process.env.PORT || 8000

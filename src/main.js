@@ -1,7 +1,6 @@
-//import '@babel/runtime/regenerator'
-//import 'react-hot-loader/patch'
-//import 'webpack-hot-middleware/client?reload=true'
 import './index.html'
 import './main.sass'
 import './app'
 import './nav.css'
+
+console.log(`Environment ${process.env.NODE_ENV}`)

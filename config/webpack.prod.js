@@ -1,10 +1,15 @@
 const path = require('path')
+const webpack = require('webpack')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
+//const MinifyPlugin = require('babel-minify-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const BrotliCompressionPlugin = require('brotli-webpack-plugin')
 
-const config = {
+const config = env => ({
   entry: {
     main: './src/main'
   },
@@ -150,8 +155,19 @@ const config = {
     new VueLoaderPlugin(),
     new MiniCSSExtractPlugin({
       filename: '[name]-[contenthash].css'
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(env.NODE_ENV)
+      }
+    }),
+    //new MinifyPlugin(),
+    new UglifyJsPlugin(),
+    new CompressionWebpackPlugin({
+      algorithm: 'gzip'
+    }),
+    new BrotliCompressionPlugin()
   ]
-}
+})
 
 module.exports = config
