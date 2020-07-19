@@ -3,9 +3,7 @@ const webpack = require('webpack')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
-const { VueLoaderPlugin } = require('vue-loader')
-//const MinifyPlugin = require('babel-minify-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const MinifyPlugin = require('babel-minify-webpack-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const BrotliCompressionPlugin = require('brotli-webpack-plugin')
 
@@ -14,9 +12,6 @@ const config = env => ({
     main: './src/main'
   },
   resolve: {
-    alias: {
-      vue$: 'vue/dist/vue.esm.js'
-    },
     extensions: ['.js', '.ts']
   },
   mode: 'production',
@@ -28,12 +23,6 @@ const config = env => ({
   module: {
     rules: [
       {
-        test: /\.vue$/,
-        use: {
-          loader: 'vue-loader'
-        }
-      },
-      {
         test: /\.js$/,
         exclude: /node_modules/,
         use:[
@@ -43,26 +32,10 @@ const config = env => ({
         ]
       },
       {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        use:[
-          {
-            loader: 'ts-loader'
-          }
-        ]
-      },
-      {
         test: /\.css$/,
         use: [
-          { loader: MiniCSSExtractPlugin.loader },
-          { 
-            loader: 'css-loader',
-            query: {
-              modules: {
-                localIdentName: "[name]-[local]-[hash:4]"
-              }
-            }
-          },
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
           { loader: 'postcss-loader' }
         ]
       },
@@ -70,14 +43,7 @@ const config = env => ({
         test: /\.sass$/,
         use: [
           { loader: 'style-loader' },
-          { 
-            loader: 'css-loader',
-            query: {
-              modules: {
-                localIdentName: "[name]-[local]-[hash:4]"
-              }
-            }
-          },
+          { loader: 'css-loader' },
           { loader: 'postcss-loader' },
           { loader: 'sass-loader' }
         ]
@@ -87,25 +53,6 @@ const config = env => ({
         use: [
           {
             loader: 'html-loader'
-          }
-        ]
-      },
-      {
-        test: /\.pug$/,
-        use: [
-          {
-            loader: 'pug-loader'
-          }
-        ]
-      },
-      {
-        test: /\.hbs$/,
-        use: [
-          {
-            loader: 'handlebars-loader',
-            query: {
-              inlineRequires: '/img/'
-            }
           }
         ]
       },
@@ -152,7 +99,6 @@ const config = env => ({
         title: "Link's journey"
       }
     ),
-    new VueLoaderPlugin(),
     new MiniCSSExtractPlugin({
       filename: '[name]-[contenthash].css'
     }),
@@ -161,8 +107,7 @@ const config = env => ({
         NODE_ENV: JSON.stringify(env.NODE_ENV)
       }
     }),
-    //new MinifyPlugin(),
-    new UglifyJsPlugin(),
+    new MinifyPlugin(),
     new CompressionWebpackPlugin({
       algorithm: 'gzip'
     }),

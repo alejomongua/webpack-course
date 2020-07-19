@@ -1,7 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { VueLoaderPlugin } = require('vue-loader')
 
 const config = {
   entry: {
@@ -15,7 +14,6 @@ const config = {
   resolve: {
     alias: {
       'react-dom': '@hot-loader/react-dom',
-      vue$: 'vue/dist/vue.esm.js'
     },
     extensions: ['.js', '.ts']
   },
@@ -38,12 +36,6 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.vue$/,
-        use: {
-          loader: 'vue-loader'
-        }
-      },
-      {
         test: /\.js$/,
         exclude: /node_modules/,
         use:[
@@ -53,26 +45,10 @@ const config = {
         ]
       },
       {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        use:[
-          {
-            loader: 'ts-loader'
-          }
-        ]
-      },
-      {
         test: /\.css$/,
         use: [
           { loader: 'style-loader' },
-          { 
-            loader: 'css-loader',
-            query: {
-              modules: {
-                localIdentName: "[name]-[local]-[hash:4]"
-              }
-            }
-          },
+          { loader: 'css-loader' },
           { loader: 'postcss-loader' }
         ]
       },
@@ -80,14 +56,7 @@ const config = {
         test: /\.sass$/,
         use: [
           { loader: 'style-loader' },
-          { 
-            loader: 'css-loader',
-            query: {
-              modules: {
-                localIdentName: "[name]-[local]-[hash:4]"
-              }
-            }
-          },
+          { loader: 'css-loader' },
           { loader: 'postcss-loader' },
           { loader: 'sass-loader' }
         ]
@@ -97,25 +66,6 @@ const config = {
         use: [
           {
             loader: 'html-loader'
-          }
-        ]
-      },
-      {
-        test: /\.pug$/,
-        use: [
-          {
-            loader: 'pug-loader'
-          }
-        ]
-      },
-      {
-        test: /\.hbs$/,
-        use: [
-          {
-            loader: 'handlebars-loader',
-            query: {
-              inlineRequires: '/img/'
-            }
           }
         ]
       },
@@ -137,10 +87,9 @@ const config = {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
         template: './src/index.html',
-        title: "Link's journey"
+        title: "My journey"
       }
-    ),
-    new VueLoaderPlugin()
+    )
   ]
 }
 
