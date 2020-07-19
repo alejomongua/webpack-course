@@ -1,1 +1,1 @@
-web: npm run devBuild && npm run prod
+web: npm run build && npm run prod

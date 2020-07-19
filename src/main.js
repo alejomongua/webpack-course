@@ -2,5 +2,6 @@
 //import 'react-hot-loader/patch'
 //import 'webpack-hot-middleware/client?reload=true'
 import './index.html'
-import './main.sass'
+import './main.css'
 import './app'
+import './nav.css'
