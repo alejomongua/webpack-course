@@ -1,14 +1,10 @@
 const path = require('path')
 const webpack = require('webpack')
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
-const nodeExternals = require('webpack-node-externals')
+const externals = require('./node-externals')
 
 const config = {
   name: 'server',
-  entry: {
-    server: './src/server/render'
-  },
+  entry:  './src/server/render',
   resolve: {
     extensions: ['.js']
   },
@@ -19,7 +15,7 @@ const config = {
     libraryTarget: 'commonjs2'
   },
   target: 'node',
-  externals: nodeExternals(),
+  externals,
   module: {
     rules: [
       {
@@ -34,7 +30,6 @@ const config = {
       {
         test: /\.css$/,
         use: [
-          MiniCSSExtractPlugin.loader,
           { loader: 'css-loader' },
           { loader: 'postcss-loader' }
         ]
@@ -42,7 +37,6 @@ const config = {
       {
         test: /\.sass$/,
         use: [
-          MiniCSSExtractPlugin.loader,
           { loader: 'css-loader' },
           { loader: 'postcss-loader' },
           { loader: 'sass-loader' }
@@ -78,9 +72,8 @@ const config = {
     ]
   },
   plugins: [
-    new OptimizeCssAssetsPlugin(),
-    new MiniCSSExtractPlugin({
-      filename: '[name].css'
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1
     }),
     new webpack.DefinePlugin({
       'process.env': {

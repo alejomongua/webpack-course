@@ -13,7 +13,7 @@ import configProdServer from '../../config/webpack.prod-server.js'
 const server = express()
 
 if (process.env.NODE_ENV === 'production'){
-  webpack([configProdClient, configProdServer]).run((err, stats) => {
+  webpack([configProdClient, configProdServer]).run(() => {
     const render = require('../../build/prod-server-bundle.js').default
     console.log(render)
     const staticMiddleware = expressStaticGzip("dist", {
