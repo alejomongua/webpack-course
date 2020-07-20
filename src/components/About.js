@@ -1,6 +1,7 @@
 import React from 'react'
 import image from '../img/sableLuminoso.png'
 import MarkdownData from '../../data/post.md'
+import '../css/About.sass'
 
 const About = () => (
   <div>

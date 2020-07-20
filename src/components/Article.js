@@ -1,4 +1,5 @@
 import React from 'react'
+import '../css/Article.sass'
 
 const Article = () => (
   <div>

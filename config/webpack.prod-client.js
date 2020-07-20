@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
 const MinifyPlugin = require('babel-minify-webpack-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const BrotliCompressionPlugin = require('brotli-webpack-plugin')
@@ -35,7 +35,7 @@ const config = {
       {
         test: /\.css$/,
         use: [
-          MiniCSSExtractPlugin.loader,
+          ExtractCssChunks.loader,
           { loader: 'css-loader' },
           { loader: 'postcss-loader' }
         ]
@@ -43,7 +43,7 @@ const config = {
       {
         test: /\.sass$/,
         use: [
-          MiniCSSExtractPlugin.loader,
+          ExtractCssChunks.loader,
           { loader: 'css-loader' },
           { loader: 'postcss-loader' },
           { loader: 'sass-loader' }
@@ -101,9 +101,7 @@ const config = {
   },
   plugins: [
     new OptimizeCssAssetsPlugin(),
-    new MiniCSSExtractPlugin({
-      filename: '[name].css'
-    }),
+    new ExtractCssChunks(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')
