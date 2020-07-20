@@ -2,31 +2,49 @@ import express from 'express'
 import webpack from 'webpack'
 import expressStaticGzip from 'express-static-gzip'
 import webpackDevMiddleware from 'webpack-dev-middleware'
-import webpackConfig from '../../config/webpack.dev.js'
 import webpackHotMiddleware from 'webpack-hot-middleware'
+import webpackHotServerMiddleware from 'webpack-hot-server-middleware'
+import configDevClient from '../../config/webpack.dev-client.js'
+import configProdClient from '../../config/webpack.prod-client.js'
+import configDevServer from '../../config/webpack.dev-server.js'
+import configProdServer from '../../config/webpack.prod-server.js'
+
 
 const server = express()
 
-const isProd = process.env.NODE_ENV === 'production'
-if (!isProd){
-  const compiler = webpack(webpackConfig)
+if (process.env.NODE_ENV === 'production'){
+  webpack([configProdClient, configProdServer]).run((err, stats) => {
+    const render = require('../../build/prod-server-bundle.js').default
+    console.log(render)
+    const staticMiddleware = expressStaticGzip("dist", {
+      enableBrotli: true
+    })
+  
+    server.use(staticMiddleware)
+    
+    server.use(render())
+  })
+} else {
+  const compiler = webpack([configDevClient, configDevServer])
+  const compilerClient = compiler.compilers[0]
+  const compilerServer = compiler.compilers[1]
+
+  require('webpack-mild-compile')(compilerServer)
   const configWebpackDevMiddleware = webpackDevMiddleware(
     compiler,
-    webpackConfig.devServer
+    configDevClient.devServer
   )
-  
-  const configWebpackHotMiddleware = webpackHotMiddleware(compiler)
+    
+  const configWebpackHotMiddleware = webpackHotMiddleware(
+    compilerClient,
+    configDevServer.devServer
+  )
   
   server.use(configWebpackDevMiddleware)
   server.use(configWebpackHotMiddleware)
   
+  server.use(webpackHotServerMiddleware(compiler))
 }
-
-//const staticMiddleware = express.static("dist")
-const staticMiddleware = expressStaticGzip("dist", {
-  enableBrotli: true
-})
-server.use(staticMiddleware)
 
 const PORT = process.env.PORT || 8000
 

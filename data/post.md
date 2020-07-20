@@ -1,5 +1,5 @@
 ---
-title: ¡Hola mundo!
+title: Hello from MD
 author: Luis Mongua
 ---
 # Hello world

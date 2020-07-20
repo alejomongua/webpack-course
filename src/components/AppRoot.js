@@ -1,8 +1,8 @@
-import React from "react"
-import '../content.css'
-import MarkdownData from '../../data/post.md'
+import React from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
+import Routes from './Routes'
 
-export default class extends React.Component {
+class AppRoot extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -10,14 +10,11 @@ export default class extends React.Component {
 
   render() {
     return (
-      <div className="profile">
-        <img src={require("../img/sableLuminoso.png")} />
-        <h1>{MarkdownData.title}</h1>
-        <h2>{MarkdownData.author}</h2>
-        <div className="content" dangerouslySetInnerHTML={{
-          __html: MarkdownData.__content
-        }}></div>
-      </div>
+      <Router>
+        <Routes />
+      </Router>
     )
   }
 }
+
+export default AppRoot

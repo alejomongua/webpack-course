@@ -9,6 +9,7 @@
     "devStart": "npx webpack-dev-server --config=config/webpack.dev.js",
     "devBuild": "npx webpack  --config=config/webpack.dev.js",
     "build": "npx webpack --config=config/webpack.prod.js --env.NODE_ENV=production",
+    "buildServer": "npx webpack --config=config/webpack.server.js --env.NODE_ENV=production",
     "dev": "nodemon --inspect --watch config --watch src/server src/server/main.js",
     "prod": "NODE_ENV=production node src/server/main.js"
   },
@@ -17,10 +18,10 @@
   "license": "ISC",
   "devDependencies": {
     "@hot-loader/react-dom": "^16.13.0",
-    "nodemon": "^2.0.4",
-    "webpack-dev-server": "^3.11.0",
+    "eslint": "^7.5.0",
     "eslint-plugin-react": "^7.20.3",
-    "eslint": "^7.5.0"
+    "nodemon": "^2.0.4",
+    "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
     "@babel/core": "^7.10.5",
@@ -45,6 +46,7 @@
     "express": "^4.17.1",
     "express-static-gzip": "^2.0.7",
     "extract-loader": "^5.1.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^6.0.0",
     "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.3.0",
@@ -61,6 +63,8 @@
     "react-dom": "^16.13.1",
     "react-emotion": "^10.0.0",
     "react-hot-loader": "^4.12.21",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.6.0",
     "sass-loader": "^9.0.2",
@@ -70,6 +74,9 @@
     "webpack-cli": "^3.3.12",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",
+    "webpack-hot-server-middleware": "^0.6.1",
+    "webpack-mild-compile": "^3.3.1",
+    "webpack-node-externals": "^2.5.0",
     "zone.js": "^0.10.3"
   }
 }

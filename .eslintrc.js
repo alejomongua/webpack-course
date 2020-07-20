@@ -6,17 +6,17 @@ module.exports = {
     },
     "extends": [
         "eslint:recommended",
-        "plugin:vue/essential",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:react/recommended"
     ],
     "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
         "ecmaVersion": 11,
-        "parser": "@typescript-eslint/parser",
         "sourceType": "module"
     },
     "plugins": [
-        "vue",
-        "@typescript-eslint"
+        "react"
     ],
     "rules": {
     }

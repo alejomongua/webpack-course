@@ -1,9 +1,9 @@
 const path = require('path')
 const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 
 const config = {
+  name: 'client',
   entry: {
     main: [
       '@babel/runtime/regenerator',
@@ -16,19 +16,18 @@ const config = {
     alias: {
       'react-dom': '@hot-loader/react-dom',
     },
-    extensions: ['.js', '.ts']
+    extensions: ['.js']
   },
   mode: 'development',
   output: {
     filename: '[name]-bundle.js',
     path: path.resolve(__dirname, '../dist'),
-    publicPath: '/'
+    publicPath: '/',
+    chunkFilename: '[name].js'
   },
   devServer: {
     contentBase: "dist",
-    historyApiFallback: true,
     overlay: true,
-    hot: true,
     stats: {
       colors: true
     }
@@ -48,18 +47,19 @@ const config = {
       {
         test: /\.css$/,
         use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'postcss-loader' }
+          MiniCSSExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader'
+
         ]
       },
       {
         test: /\.sass$/,
         use: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'postcss-loader' },
-          { loader: 'sass-loader' }
+          MiniCSSExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'
         ]
       },
       {
@@ -92,14 +92,9 @@ const config = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-        template: './src/index.html',
-        title: "My journey"
-      }
-    ),
-    new BundleAnalyzerPlugin({
-      generateStatsFile: true
-    })
+    new MiniCSSExtractPlugin({
+      filename: '[name].css'
+    }),
   ]
 }
 

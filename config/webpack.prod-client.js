@@ -1,24 +1,29 @@
 const path = require('path')
 const webpack = require('webpack')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const MinifyPlugin = require('babel-minify-webpack-plugin')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const BrotliCompressionPlugin = require('brotli-webpack-plugin')
 
-const config = env => ({
+const config = {
+  name: 'client',
   entry: {
     main: './src/main'
   },
   resolve: {
-    extensions: ['.js', '.ts']
+    extensions: ['.js']
   },
   mode: 'production',
   output: {
     filename: '[name]-bundle.js',
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/'
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
   },
   module: {
     rules: [
@@ -34,7 +39,7 @@ const config = env => ({
       {
         test: /\.css$/,
         use: [
-          { loader: 'style-loader' },
+          MiniCSSExtractPlugin.loader,
           { loader: 'css-loader' },
           { loader: 'postcss-loader' }
         ]
@@ -42,7 +47,7 @@ const config = env => ({
       {
         test: /\.sass$/,
         use: [
-          { loader: 'style-loader' },
+          MiniCSSExtractPlugin.loader,
           { loader: 'css-loader' },
           { loader: 'postcss-loader' },
           { loader: 'sass-loader' }
@@ -100,17 +105,12 @@ const config = env => ({
   },
   plugins: [
     new OptimizeCssAssetsPlugin(),
-    new HtmlWebpackPlugin({
-        template: './src/index.html',
-        title: "Link's journey"
-      }
-    ),
     new MiniCSSExtractPlugin({
-      filename: '[name]-[contenthash].css'
+      filename: '[name].css'
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(env.NODE_ENV)
+        NODE_ENV: JSON.stringify('production')
       }
     }),
     new MinifyPlugin(),
@@ -119,6 +119,6 @@ const config = env => ({
     }),
     new BrotliCompressionPlugin()
   ]
-})
+}
 
 module.exports = config
