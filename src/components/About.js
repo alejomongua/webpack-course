@@ -1,6 +1,4 @@
 import React from 'react'
-import '../main.sass'
-import '../nav.sass'
 import image from '../img/sableLuminoso.png'
 import MarkdownData from '../../data/post.md'
 

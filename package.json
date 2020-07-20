@@ -6,10 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "devStart": "npx webpack-dev-server --config=config/webpack.dev.js",
-    "devBuild": "npx webpack  --config=config/webpack.dev.js",
-    "build": "npx webpack --config=config/webpack.prod.js --env.NODE_ENV=production",
-    "buildServer": "npx webpack --config=config/webpack.server.js --env.NODE_ENV=production",
+    "build": "npx webpack --config=config/webpack.prod-client.js --env.NODE_ENV=production",
     "dev": "nodemon --inspect --watch config --watch src/server src/server/main.js",
     "prod": "NODE_ENV=production node src/server/main.js"
   },
@@ -38,6 +35,7 @@
     "babel-loader": "^8.1.0",
     "babel-minify-webpack-plugin": "^0.3.1",
     "babel-plugin-emotion": "^10.0.33",
+    "babel-plugin-universal-import": "^4.0.2",
     "brotli-webpack-plugin": "^1.1.0",
     "compression-webpack-plugin": "^4.0.0",
     "core-js": "^3.6.5",
@@ -65,6 +63,7 @@
     "react-hot-loader": "^4.12.21",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
+    "react-universal-component": "^4.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.6.0",
     "sass-loader": "^9.0.2",

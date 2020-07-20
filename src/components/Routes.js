@@ -1,9 +1,9 @@
 import React from 'react'
-import Gallery from './Gallery'
-import About from './About'
-import Article from './Article'
 
 import { Route, Link } from 'react-router-dom'
+import universal from 'react-universal-component'
+
+const UniversalComponent = universal(props => import(`./${props.page}`))
 
 const Routes = () => (
   <div>
@@ -13,9 +13,15 @@ const Routes = () => (
       <Link to='/article'>Article</Link>
     </div>
     <div>
-      <Route exact path="/" component={Gallery}/>
-      <Route path="/about" component={About}/>
-      <Route path="/article" component={Article}/>
+      <Route exact path="/">
+        <UniversalComponent page="Gallery" />
+      </Route>
+      <Route path="/about">
+        <UniversalComponent page="About" />
+      </Route>
+      <Route path="/article">
+        <UniversalComponent page="Article" />
+      </Route>
     </div>
   </div>
 )

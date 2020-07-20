@@ -6,12 +6,6 @@
   "plugins": [
     "@babel/plugin-transform-runtime",
     "react-hot-loader/babel",
-    [
-      "emotion",
-      {
-        "sourceMap": true,
-        "autoLabel": true
-      }
-    ]
+    "babel-plugin-universal-import"
   ]
 }
