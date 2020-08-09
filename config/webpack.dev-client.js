@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin')
+const MiniCssExtractCSS = require('mini-css-extract-plugin')
 
 const config = {
   name: 'client',
@@ -47,7 +48,7 @@ const config = {
       {
         test: /\.css$/,
         use: [
-          ExtractCssChunks.loader,
+          MiniCssExtractCSS.loader,
           'css-loader',
           'postcss-loader'
 
@@ -56,7 +57,7 @@ const config = {
       {
         test: /\.sass$/,
         use: [
-          ExtractCssChunks.loader,
+          MiniCssExtractCSS.loader,
           'css-loader',
           'postcss-loader',
           'sass-loader'
@@ -91,9 +92,7 @@ const config = {
     ]
   },
   plugins: [
-    new ExtractCssChunks({
-      hot: true
-    }),
+    new MiniCssExtractCSS(),
     new webpack.HotModuleReplacementPlugin(),
   ]
 }

@@ -8,9 +8,35 @@ import configDevClient from '../../config/webpack.dev-client.js'
 import configProdClient from '../../config/webpack.prod-client.js'
 import configDevServer from '../../config/webpack.dev-server.js'
 import configProdServer from '../../config/webpack.prod-server.js'
-
+import marked from 'marked'
+import { loadFront } from 'yaml-front-matter'
+import fs from 'fs'
+import path from 'path'
 
 const server = express()
+
+server.get('/api/articles/:slug', (req, res) => {
+  try {
+    const site = req.hostname.split('.')[0]
+    const { slug } = req.params
+    if (!slug) {
+      throw new Error('No article specified')
+    }
+    const file = path.resolve(__dirname, `../../data/${site}/${slug}.md`)
+    fs.readFile(file, 'utf-8', (err, data) => {
+      if (err) {
+        res.status(404).send(err)
+        return
+      }
+
+      const obj = loadFront(data)
+      obj.__content = marked(obj.__content)
+      res.json(obj)
+    })
+  } catch (err) {
+    res.status(404).send(err)
+  }
+})
 
 if (process.env.NODE_ENV === 'production'){
   webpack([configProdClient, configProdServer]).run((err, stats) => {

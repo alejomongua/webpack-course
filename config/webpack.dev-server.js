@@ -54,7 +54,7 @@ const config = {
           {
             loader: 'file-loader',
             options: {
-              name: 'img/[name]-[hash:8].[ext]',
+              name: '/img/[name]-[hash:8].[ext]',
               esModule: false,
               emitFile: false
             }
